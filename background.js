@@ -2,8 +2,8 @@
 
 var socket = null;
 
-var connect = data => {
-  const remote = data.remote;
+var connect = function(data) {
+  var remote = data.remote;
   socket = new WebSocket(remote);
 
   self.postMessage({
@@ -11,28 +11,28 @@ var connect = data => {
     data: `status: ${socket.readyState}`
   });
 
-  socket.onerror = (e) => {
+  socket.onerror = function(e) {
     self.postMessage({
       action: 'status',
       data: `error: ${e.stack}`
     });
   };
 
-  socket.onopen = () => {
+  socket.onopen = function() {
     self.postMessage({
       action: 'status',
       data: `onopen: ${socket.readyState}`
     });
   };
 
-  socket.onclose = () => {
+  socket.onclose = function() {
     self.postMessage({
       action: 'status',
       data: `onclose: ${socket.readyState}`
     });
   };
 
-  socket.onmessage = message => {
+  socket.onmessage = function(message) {
     self.postMessage({
       action: 'message',
       data: message.data
@@ -40,8 +40,8 @@ var connect = data => {
   };
 };
 
-self.addEventListener('message', message => {
-  const data = message.data;
+self.addEventListener('message', function(message) {
+  var data = message.data;
 
   if (data.action === 'connect') {
     connect(data.data);

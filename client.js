@@ -1,28 +1,28 @@
 'use strict';
 
-const worker = new Worker('background.js');
+var worker = new Worker('background.js');
 
 var $ = document.querySelector.bind(document);
 
-const getUrlParams = k => {
-  const params = {};
-  const url = location.href;
-  const idx = url.indexOf('?');
+var getUrlParams = function(k) {
+  var params = {};
+  var url = location.href;
+  var idx = url.indexOf('?');
 
   if (idx > 0) {
-    const queryStr = url.substring(idx + 1);
-    const args = queryStr.split('&');
+    var queryStr = url.substring(idx + 1);
+    var args = queryStr.split('&');
 
     for (let i = 0; i < args.length; i++) {
-      const a = args[i];
-      const nv = args[i] = a.split('=');
+      var a = args[i];
+      var nv = args[i] = a.split('=');
       params[nv[0]] = nv.length > 1 ? nv[1] : true;
     }
   }
   return params[k];
 };
 
-const bindEvent = function(el, eventName, handler) {
+var bindEvent = function(el, eventName, handler) {
   if (el.addEventListener) {
     el.addEventListener(eventName, handler, false);
   } else {
@@ -32,7 +32,7 @@ const bindEvent = function(el, eventName, handler) {
   }
 };
 
-const getRemote = () => {
+var getRemote = function() {
   var server = getUrlParams('server') || 'ws://localhost:5678/';
 
   if (!~server.indexOf('ws://')) {
@@ -43,7 +43,7 @@ const getRemote = () => {
   return server;
 };
 
-const changeStatus = log => {
+var changeStatus = function(log) {
   $('#status').innerHTML = log;
 };
 
@@ -54,14 +54,14 @@ worker.postMessage({
   }
 });
 
-bindEvent($('#send'), 'click', (e) => {
-  const data = {
+bindEvent($('#send'), 'click', function(e) {
+  var data = {
     name: $('#name').value,
     message: $('#message').value,
     date: new Date()
   };
 
-  const jsonstring = JSON.stringify(data);
+  var jsonstring = JSON.stringify(data);
 
   worker.postMessage({
     action: 'message',
@@ -71,16 +71,15 @@ bindEvent($('#send'), 'click', (e) => {
   $('#message').value = '';
 });
 
-bindEvent(worker, 'message', message => {
+bindEvent(worker, 'message', function(message) {
   changeStatus('message arrived');
 
   var data = message.data;
 
-
   if (data.action === 'message') {
     data = JSON.parse(data.data);
-    const color = $('#name').value === data.name ? 'red' : 'blue';
-    const item = `<li><i style="color: ${color}">${data.name}</i>[${data.date}]<br>${data.message}</li>`;
+    var color = $('#name').value === data.name ? 'red' : 'blue';
+    var item = `<li><i style="color: ${color}">${data.name}</i>[${data.date}]<br>${data.message}</li>`;
     $('#history').innerHTML += item;
   } else if (data.action === 'status') {
     changeStatus(data.data)
