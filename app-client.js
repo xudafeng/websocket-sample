@@ -96,7 +96,7 @@ var changeView = function() {
   var contentElem = $('#history .content');
 
   if (offsetHeight > 0) {
-    contentElem.style.top = `${-20 - offsetHeight}px`;
+    contentElem.style.top = `${-60 - offsetHeight}px`;
   }
 };
 

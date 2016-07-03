@@ -17,9 +17,10 @@
   #page {
     height: 100%;
   }
-  h1 {
+  h4 {
     text-align: center;
-    margin:0;
+    margin: 0;
+    padding: 10px;
   }
   input, textarea {
     width: 100%;
@@ -50,6 +51,7 @@
     font-size: .5em;
     text-align: right;
     padding: 5px;
+    margin-top: -20px;
   }
   #history {
     font-size: .6em;
@@ -76,6 +78,7 @@
     width: 40px;
     height: 40px;
     border-radius: 2px;
+    border: none;
   }
   #history li span {
     height: 40px;
@@ -93,13 +96,14 @@
     padding: 0 10px;
   }
   #history li span:after {
-    border-left-color: #b2e281;
-    border-left-width: 4px;
-    position: absolute;
-    top: 14px;
     border: 6px solid transparent;
-    content: " ";
-    left: 100%;
+    border-right: 4px solid #fff;
+    width: 0;
+    height: 0;
+    position: absolute;
+    content: ' ';
+    left: -10px;
+    top: 14px;
   }
   .myself {
     text-align: right;
@@ -111,12 +115,18 @@
     background: #b2e281!important;
     margin-right: 10px;
   }
+  .myself span:after {
+    left: initial!important;
+    border-right: none!important;
+    border-left: 4px solid #b2e281!important;
+    right: -4px!important;
+  }
   </style>
 </head>
 <body>
   <div id="page">
     <div id="header">
-      <h1>Chat Group</h1>
+      <h4>Chat Group</h4>
       <div id="status"></div>
     </div>
     <div id="history">
