@@ -34,7 +34,8 @@ var bindEvent = function(el, eventName, handler) {
 };
 
 var getRemote = function() {
-  var server = getUrlParams('server') || 'ws://localhost:5678/';
+  var host = location.host.split(':')[0];
+  var server = getUrlParams('server') || `ws://${host}:5678/`;
 
   if (!~server.indexOf('ws://')) {
     server = `ws://${server}`;
