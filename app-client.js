@@ -104,6 +104,7 @@ var changeView = function() {
 var avatar_1 = $('#avatar_1').innerHTML.trim();
 var avatar_2 = $('#avatar_2').innerHTML.trim();
 
+
 bindEvent(worker, 'message', function(message) {
   changeStatus('message arrived');
 
@@ -112,7 +113,6 @@ bindEvent(worker, 'message', function(message) {
   if (data.action === 'message') {
     data = JSON.parse(data.data);
     var myself = myuuid === data.name;
-
     var item = `<li class="${myself ? 'myself' : ''}"><img src="${myself ? avatar_1 : avatar_2}" /><span>${data.message}</span></li>`;
     $('#history .content').innerHTML += item;
     changeView();
