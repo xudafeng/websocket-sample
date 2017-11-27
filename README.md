@@ -2,6 +2,6 @@
 
 [websockets](https://www.w3.org/TR/websockets/)
 
-```shell
+```bash
 $ node server.js
 ```
